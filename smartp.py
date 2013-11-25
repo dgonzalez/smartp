@@ -1,5 +1,6 @@
 import sys
 import xml.etree.ElementTree as ET
+import urllib2
 
 """ 
 	TODO: Check for property not found on update and delete
@@ -16,6 +17,7 @@ def update_property(dstfile, key, value):
 				data = data + key + "=" + value
 			else:
 				data = data + line
+
 		dstdescriptor.seek(0)
 		dstdescriptor.write(data)
 		dstdescriptor.truncate()
@@ -42,7 +44,6 @@ def add_property(dstfile, key, value):
 	with open(dstfile, "r+") as dstdescriptor:
 		allfile = dstdescriptor.read()
 		allfile = allfile + "\n" + key + "=" + value
-		print allfile
 		data = allfile
 
 		dstdescriptor.seek(0)
@@ -71,5 +72,12 @@ if __name__ == "__main__":
 	if len(sys.argv) != 3:
 		print "Error: usage smartp src.patch.xml dst.properties"
 		exit(-1)
+
+	# get the file from http|https address:
+	if sys.argv[1].strip().startswith("http") or sys.argv[1].strip().startswith("https"):
+		with open("file.tmp.patch.xml", "w+") as tmpfile:
+			tmpfile.write(urllib2.urlopen(sys.argv[1]).read())
+
+		sys.argv[1] = "file.tmp.patch.xml"
 
 	main(sys.argv[1], sys.argv[2])
