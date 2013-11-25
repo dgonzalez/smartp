@@ -6,18 +6,8 @@
 		<value>David</value>
 	</property>
 	<property>
-		<action>update</action>
-		<key>test.my.name</key>
-		<value>David</value>
-	</property>
-	<property>
 		<action>add</action>
-		<key>test.my.name</key>
-		<value>David</value>
-	</property>
-	<property>
-		<action>delete</action>
-		<key>test.my.name</key>
+		<key>david.mola.mazo</key>
 		<value>David</value>
 	</property>
 </properties>
